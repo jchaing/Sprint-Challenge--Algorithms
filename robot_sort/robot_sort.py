@@ -97,7 +97,37 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-        pass
+
+        # initialize and turn robot on
+        self.set_light_on()
+
+        # loop through list while robot is on
+        while self.light_is_on() is True:
+            # initial swap pivot None
+            self.swap_item()
+
+            # keep moving right to find smallest item
+            while self.can_move_right():
+                self.move_right()
+
+                # check if item held is larger than item element, then swap
+                if self.compare_item() == 1:
+                    self.swap_item()
+
+            # once we reached end, go back left and swap the smallest number with None
+            while self.can_move_left() is True and self.compare_item() is not None:
+                self.move_left()
+
+            # swap smallest item with None
+            self.swap_item()
+
+            # move to next element of pivot None and repeat the process
+            if self.can_move_right() is True:
+                self.move_right()
+
+            else:
+                # once we've swapped all items and reached end, turn off robot
+                self.set_light_off()
 
 
 if __name__ == "__main__":
